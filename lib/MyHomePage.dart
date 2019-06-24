@@ -58,7 +58,7 @@ Widget _appBody() {
   }
 
   return RefreshIndicator(
-      child: new FutureBuilder(
+    child: new FutureBuilder(
       future: _fetchData(),
       initialData: 56,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -76,7 +76,7 @@ Widget _appBody() {
             break;
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return  Container(
+              return Container(
                 child: new Center(
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,16 +86,16 @@ Widget _appBody() {
                         padding: EdgeInsets.all(40.0),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: new RaisedButton(
-                          onPressed: _fetchData,
-                          child: new Text("Try Again",
-                          style: new TextStyle(color: Colors.white),
-                          ),
-                          color: Colors.indigoAccent,
-                        )
-                      ),
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: new RaisedButton(
+                            onPressed: _fetchData,
+                            child: new Text(
+                              "Try Again",
+                              style: new TextStyle(color: Colors.white),
+                            ),
+                            color: Colors.indigoAccent,
+                          )),
                     ],
                   ),
                 ),
@@ -111,7 +111,8 @@ Widget _appBody() {
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
                           child: ExpansionTile(
                               title: new Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   new Text(
@@ -126,9 +127,11 @@ Widget _appBody() {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       FilterChip(
-                                        label: new Text(results[index].category),
+                                        label:
+                                            new Text(results[index].category),
                                         backgroundColor: Colors.indigo[50],
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
                                         onSelected: (bool value) {},
                                       ),
                                       new SizedBox(
@@ -138,7 +141,8 @@ Widget _appBody() {
                                         label:
                                             new Text(results[index].difficulty),
                                         backgroundColor: Colors.indigo[50],
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
                                         onSelected: (bool value) {},
                                       )
                                     ],
@@ -165,32 +169,32 @@ Widget _appBody() {
         }
         Widget _hasErrorButton() {
           return new Container(
-                child: new Center(
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new Padding(
-                        child: new Text("Error Happen : '${snapshot.error}'"),
-                        padding: EdgeInsets.all(40.0),
+              child: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Padding(
+                  child: new Text("Error Happen : '${snapshot.error}'"),
+                  padding: EdgeInsets.all(40.0),
+                ),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: new RaisedButton(
+                      onPressed: _fetchData,
+                      child: new Text(
+                        "Try Again",
+                        style: new TextStyle(color: Colors.white),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: new RaisedButton(
-                          onPressed: _fetchData,
-                          child: new Text("Try Again",
-                          style: new TextStyle(color: Colors.white),
-                          ),
-                          color: Colors.indigoAccent,
-                        )
-                      ),
-                    ],
-                  ),
-                )
-          );
+                      color: Colors.indigoAccent,
+                    )),
+              ],
+            ),
+          ));
         }
       },
-    ), onRefresh: _fetchData,
+    ),
+    onRefresh: _fetchData,
   );
 }
 
