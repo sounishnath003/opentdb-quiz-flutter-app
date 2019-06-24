@@ -15,7 +15,15 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         titleSpacing: 2.0,
         backgroundColor: Colors.white,
+        elevation: 1.0,
       ),
+      body: _appBody(),
     );
   }
+}
+
+Widget _appBody() {
+  return new Center(
+    child: new Text("hey Bro"),
+  );
 }
