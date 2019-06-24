@@ -48,7 +48,7 @@ Widget _appBody() {
   Quiz quiz ;
   List<Results> results ;
 
-  Future<void> fetchData() async {
+  Future<void> _fetchData() async {
     final url = await http.get("https://opentdb.com/api.php?amount=30");
     if (url.statusCode == 200) {
       var decodeRes = jsonDecode(url.body) ;
@@ -62,7 +62,7 @@ Widget _appBody() {
   }
 
   return new FutureBuilder(
-    future: fetchData(),
+    future: _fetchData(),
     initialData: 56,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       switch (snapshot.connectionState) {
