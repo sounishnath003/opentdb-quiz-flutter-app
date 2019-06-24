@@ -163,7 +163,7 @@ Widget _appBody() {
             break;
           default:
         }
-        Container _hasErrorButton() {
+        Widget _hasErrorButton() {
           return new Container(
                 child: new Center(
                   child: new Column(
