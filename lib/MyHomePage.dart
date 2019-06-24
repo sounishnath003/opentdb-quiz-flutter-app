@@ -77,23 +77,53 @@ Widget _appBody() {
           if (snapshot.hasError) {
             return Container();
           } else {
-            return ListView.builder(
-                itemCount: results.length,
-                itemBuilder: (BuildContext context, int index) => new Card(
-                  color: Colors.white,
-                  elevation: 0.0,
-                      child: ExpansionTile(
-                        title: new Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Text(results[index].question)
-                          ],
+            return SafeArea(
+              child: ListView.builder(
+                  itemCount: results.length,
+                  itemBuilder: (BuildContext context, int index) => new Card(
+                      color: Colors.white,
+                      elevation: 0.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ExpansionTile(
+                          title: new Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                results[index].question,
+                                style: new TextStyle(
+                                  fontSize: 17.0,
+                                  //fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              new FittedBox(
+                                child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  FilterChip(
+                                    label: new Text(results[index].category),
+                                    backgroundColor: Colors.indigo[50],
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    onSelected: (bool value) {},
+                                  ),
+                                  new SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  FilterChip(
+                                    label: new Text(results[index].difficulty),
+                                    backgroundColor: Colors.indigo[50],
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    onSelected: (bool value) {},
+                                  )
+                                ],
+                              )
+                              ),
+                            ],
+                          ),
                         ),
-
-                      )
-                    )
-              );
+                      ))),
+            );
           }
           break;
         default:
