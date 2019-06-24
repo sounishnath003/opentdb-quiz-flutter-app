@@ -71,10 +71,9 @@ Widget _appBody() {
           break;
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return new Center(
-              child: new CircularProgressIndicator()
-              );
-
+            return Center(child: CircularProgressIndicator()
+            );
+            break;
           case ConnectionState.done:
           if(snapshot.hasError) {
             return Container(
@@ -85,6 +84,7 @@ Widget _appBody() {
               child: new Text("Data Arrived"),
             );
           }
+          break ;
         default:
       }
     },
