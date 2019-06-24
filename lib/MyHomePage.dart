@@ -127,9 +127,9 @@ Widget _appBody() {
                             backgroundColor: Colors.greenAccent,
                             foregroundColor: Colors.black,
                           ),
-                          children: <Widget>[
-                            AnswerWidget(),
-                          ],
+                          children: results[index].allAnswers.map((m) {
+                            return AnswerWidget(results: results, index: index, m: m) ;
+                          }).toList()
                         ),
                       ))),
             );
@@ -147,6 +147,8 @@ class AnswerWidget extends StatefulWidget {
   final int index ;
   final String m ;
 
+  AnswerWidget({this.results, this.index, this.m});
+
   _AnswerWidgetState createState() => _AnswerWidgetState();
 }
 
@@ -154,7 +156,15 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: new Center(child: new Text("fuck me"),)
+       child: new ListTile(
+         onTap: () {},
+         title: new Text(widget.m,
+         textAlign: TextAlign.center,
+         style: new TextStyle(
+           fontSize: 18,
+         ),
+         ),
+       )
     );
   }
 }
