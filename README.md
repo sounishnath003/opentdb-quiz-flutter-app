@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+# APP HOME
+![og.jpg](og.jpg)
+
+# app Code
+![og.png](og.png)
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
