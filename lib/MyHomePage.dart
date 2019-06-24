@@ -154,16 +154,26 @@ class AnswerWidget extends StatefulWidget {
 }
 
 class _AnswerWidgetState extends State<AnswerWidget> {
+  Color c = Colors.black ;
   @override
   Widget build(BuildContext context) {
     return Container(
         child: new ListTile(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+         if (widget.m == widget.results[widget.index].correctAnswer) {
+          c = Colors.greenAccent ;
+        } else {
+          c = Colors.redAccent ;
+        } 
+        });
+      },
       title: new Text(
         widget.m,
         textAlign: TextAlign.center,
         style: new TextStyle(
           fontSize: 18,
+          color: c,
         ),
       ),
     ));
