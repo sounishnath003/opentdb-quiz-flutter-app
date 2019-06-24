@@ -57,89 +57,91 @@ Widget _appBody() {
     }
   }
 
-  return new FutureBuilder(
-    future: _fetchData(),
-    initialData: 56,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      switch (snapshot.connectionState) {
-        case ConnectionState.none:
-          return new Text("Press button to start");
-          break;
-        case ConnectionState.active:
-          return Center(
-            child: new Text("In Progress..."),
-          );
-          break;
-        case ConnectionState.waiting:
-          return Center(child: CircularProgressIndicator());
-          break;
-        case ConnectionState.done:
-          if (snapshot.hasError) {
-            return Container();
-          } else {
-            return SafeArea(
-              child: ListView.builder(
-                  itemCount: results.length,
-                  itemBuilder: (BuildContext context, int index) => new Card(
-                      color: Colors.white,
-                      elevation: 0.0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: ExpansionTile(
-                            title: new Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                new Text(
-                                  results[index].question,
-                                  style: new TextStyle(
-                                    fontSize: 17.0,
-                                    //fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                new FittedBox(
-                                    child: new Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    FilterChip(
-                                      label: new Text(results[index].category),
-                                      backgroundColor: Colors.indigo[50],
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      onSelected: (bool value) {},
-                                    ),
-                                    new SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    FilterChip(
-                                      label:
-                                          new Text(results[index].difficulty),
-                                      backgroundColor: Colors.indigo[50],
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      onSelected: (bool value) {},
-                                    )
-                                  ],
-                                )),
-                              ],
-                            ),
-                            leading: new CircleAvatar(
-                              child: new Text(
-                                  (results[index].type.startsWith("m")
-                                      ? "M"
-                                      : "B")),
-                              backgroundColor: Colors.greenAccent,
-                              foregroundColor: Colors.black,
-                            ),
-                            children: results[index].allAnswers.map((m) {
-                              return AnswerWidget(
-                                  results: results, index: index, m: m);
-                            }).toList()),
-                      ))),
+  return RefreshIndicator(
+      child: new FutureBuilder(
+      future: _fetchData(),
+      initialData: 56,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new Text("Press button to start");
+            break;
+          case ConnectionState.active:
+            return Center(
+              child: new Text("In Progress..."),
             );
-          }
-          break;
-        default:
-      }
-    },
+            break;
+          case ConnectionState.waiting:
+            return Center(child: CircularProgressIndicator());
+            break;
+          case ConnectionState.done:
+            if (snapshot.hasError) {
+              return Container();
+            } else {
+              return SafeArea(
+                child: ListView.builder(
+                    itemCount: results.length,
+                    itemBuilder: (BuildContext context, int index) => new Card(
+                        color: Colors.white,
+                        elevation: 0.0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: ExpansionTile(
+                              title: new Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Text(
+                                    results[index].question,
+                                    style: new TextStyle(
+                                      fontSize: 17.0,
+                                      //fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  new FittedBox(
+                                      child: new Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      FilterChip(
+                                        label: new Text(results[index].category),
+                                        backgroundColor: Colors.indigo[50],
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        onSelected: (bool value) {},
+                                      ),
+                                      new SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      FilterChip(
+                                        label:
+                                            new Text(results[index].difficulty),
+                                        backgroundColor: Colors.indigo[50],
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        onSelected: (bool value) {},
+                                      )
+                                    ],
+                                  )),
+                                ],
+                              ),
+                              leading: new CircleAvatar(
+                                child: new Text(
+                                    (results[index].type.startsWith("m")
+                                        ? "M"
+                                        : "B")),
+                                backgroundColor: Colors.greenAccent,
+                                foregroundColor: Colors.black,
+                              ),
+                              children: results[index].allAnswers.map((m) {
+                                return AnswerWidget(
+                                    results: results, index: index, m: m);
+                              }).toList()),
+                        ))),
+              );
+            }
+            break;
+          default:
+        }
+      },
+    ), onRefresh: _fetchData,
   );
 }
 
@@ -154,18 +156,18 @@ class AnswerWidget extends StatefulWidget {
 }
 
 class _AnswerWidgetState extends State<AnswerWidget> {
-  Color c = Colors.black ;
+  Color c = Colors.black;
   @override
   Widget build(BuildContext context) {
     return Container(
         child: new ListTile(
       onTap: () {
         setState(() {
-         if (widget.m == widget.results[widget.index].correctAnswer) {
-          c = Colors.greenAccent ;
-        } else {
-          c = Colors.redAccent ;
-        } 
+          if (widget.m == widget.results[widget.index].correctAnswer) {
+            c = Colors.greenAccent;
+          } else {
+            c = Colors.redAccent;
+          }
         });
       },
       title: new Text(
