@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:quiz_app_api/Quiz.dart';
@@ -70,6 +71,8 @@ Widget _appBody() {
             return new Text("Press button to start");
           break;
           case ConnectionState.active:
+            return Center(child: new Text("In Progress..."),);
+          break;
           case ConnectionState.waiting:
             return Center(child: CircularProgressIndicator()
             );
@@ -80,13 +83,29 @@ Widget _appBody() {
 
             );
           } else {
-            return Container(
-              child: new Text("Data Arrived"),
-            );
-          }
-          break ;
-        default:
-      }
-    },
-  );
+            return new QuestionList() ;
+                      }
+                      break ;
+                    default:
+                  }
+                },
+              );
+            }
+            
+class QuestionList extends StatefulWidget {
+  QuestionList({Key key}) : super(key: key);
+
+  _QuestionListState createState() => _QuestionListState();
+}
+
+class _QuestionListState extends State<QuestionList> {
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+      itemCount: 56,
+      itemBuilder: (BuildContext context, int index) => Card(
+        child: new Text("Questions Are Comming"),
+      )
+    );
+  }
 }
