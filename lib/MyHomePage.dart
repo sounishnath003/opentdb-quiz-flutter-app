@@ -84,7 +84,7 @@ Widget _appBody() {
                       color: Colors.white,
                       elevation: 0.0,
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: ExpansionTile(
                           title: new Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +98,7 @@ Widget _appBody() {
                                 ),
                               ),
                               new FittedBox(
-                                child: new Row(
+                                  child: new Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   FilterChip(
@@ -117,9 +117,13 @@ Widget _appBody() {
                                     onSelected: (bool value) {},
                                   )
                                 ],
-                              )
-                              ),
+                              )),
                             ],
+                          ),
+                          leading: new CircleAvatar(
+                            child: new Text((results[index].type.startsWith("m") ? "M" : "B")),
+                            backgroundColor: Colors.greenAccent,
+                            foregroundColor: Colors.black,
                           ),
                         ),
                       ))),
