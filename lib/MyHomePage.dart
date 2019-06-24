@@ -86,51 +86,53 @@ Widget _appBody() {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: ExpansionTile(
-                          title: new Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              new Text(
-                                results[index].question,
-                                style: new TextStyle(
-                                  fontSize: 17.0,
-                                  //fontWeight: FontWeight.bold
+                            title: new Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                new Text(
+                                  results[index].question,
+                                  style: new TextStyle(
+                                    fontSize: 17.0,
+                                    //fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              ),
-                              new FittedBox(
-                                  child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  FilterChip(
-                                    label: new Text(results[index].category),
-                                    backgroundColor: Colors.indigo[50],
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    onSelected: (bool value) {},
-                                  ),
-                                  new SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  FilterChip(
-                                    label: new Text(results[index].difficulty),
-                                    backgroundColor: Colors.indigo[50],
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    onSelected: (bool value) {},
-                                  )
-                                ],
-                              )),
-                            ],
-                          ),
-                          leading: new CircleAvatar(
-                            child: new Text((results[index].type.startsWith("m")
-                                ? "M"
-                                : "B")),
-                            backgroundColor: Colors.greenAccent,
-                            foregroundColor: Colors.black,
-                          ),
-                          children: results[index].allAnswers.map((m) {
-                            return AnswerWidget(results: results, index: index, m: m) ;
-                          }).toList()
-                        ),
+                                new FittedBox(
+                                    child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    FilterChip(
+                                      label: new Text(results[index].category),
+                                      backgroundColor: Colors.indigo[50],
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      onSelected: (bool value) {},
+                                    ),
+                                    new SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    FilterChip(
+                                      label:
+                                          new Text(results[index].difficulty),
+                                      backgroundColor: Colors.indigo[50],
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      onSelected: (bool value) {},
+                                    )
+                                  ],
+                                )),
+                              ],
+                            ),
+                            leading: new CircleAvatar(
+                              child: new Text(
+                                  (results[index].type.startsWith("m")
+                                      ? "M"
+                                      : "B")),
+                              backgroundColor: Colors.greenAccent,
+                              foregroundColor: Colors.black,
+                            ),
+                            children: results[index].allAnswers.map((m) {
+                              return AnswerWidget(
+                                  results: results, index: index, m: m);
+                            }).toList()),
                       ))),
             );
           }
@@ -141,11 +143,10 @@ Widget _appBody() {
   );
 }
 
-
 class AnswerWidget extends StatefulWidget {
-  final List<Results> results ;
-  final int index ;
-  final String m ;
+  final List<Results> results;
+  final int index;
+  final String m;
 
   AnswerWidget({this.results, this.index, this.m});
 
@@ -156,15 +157,15 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: new ListTile(
-         onTap: () {},
-         title: new Text(widget.m,
-         textAlign: TextAlign.center,
-         style: new TextStyle(
-           fontSize: 18,
-         ),
-         ),
-       )
-    );
+        child: new ListTile(
+      onTap: () {},
+      title: new Text(
+        widget.m,
+        textAlign: TextAlign.center,
+        style: new TextStyle(
+          fontSize: 18,
+        ),
+      ),
+    ));
   }
 }
