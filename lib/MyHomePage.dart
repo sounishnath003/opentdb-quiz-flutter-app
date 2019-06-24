@@ -80,7 +80,18 @@ Widget _appBody() {
             return ListView.builder(
                 itemCount: results.length,
                 itemBuilder: (BuildContext context, int index) => new Card(
-                      child: new Text("2"),
+                  color: Colors.white,
+                  elevation: 0.0,
+                      child: ExpansionTile(
+                        title: new Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(results[index].question)
+                          ],
+                        ),
+
+                      )
                     )
               );
           }
