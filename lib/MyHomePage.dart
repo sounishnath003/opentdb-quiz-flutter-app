@@ -121,10 +121,15 @@ Widget _appBody() {
                             ],
                           ),
                           leading: new CircleAvatar(
-                            child: new Text((results[index].type.startsWith("m") ? "M" : "B")),
+                            child: new Text((results[index].type.startsWith("m")
+                                ? "M"
+                                : "B")),
                             backgroundColor: Colors.greenAccent,
                             foregroundColor: Colors.black,
                           ),
+                          children: <Widget>[
+                            AnswerWidget(),
+                          ],
                         ),
                       ))),
             );
@@ -134,4 +139,22 @@ Widget _appBody() {
       }
     },
   );
+}
+
+
+class AnswerWidget extends StatefulWidget {
+  final List<Results> results ;
+  final int index ;
+  final String m ;
+
+  _AnswerWidgetState createState() => _AnswerWidgetState();
+}
+
+class _AnswerWidgetState extends State<AnswerWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       child: new Center(child: new Text("fuck me"),)
+    );
+  }
 }
