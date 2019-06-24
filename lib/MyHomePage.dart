@@ -76,7 +76,7 @@ Widget _appBody() {
             break;
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return Container(
+              return  Container(
                 child: new Center(
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -162,6 +162,32 @@ Widget _appBody() {
             }
             break;
           default:
+        }
+        Container _hasErrorButton() {
+          return new Container(
+                child: new Center(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new Padding(
+                        child: new Text("Error Happen : '${snapshot.error}'"),
+                        padding: EdgeInsets.all(40.0),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: new RaisedButton(
+                          onPressed: _fetchData,
+                          child: new Text("Try Again",
+                          style: new TextStyle(color: Colors.white),
+                          ),
+                          color: Colors.indigoAccent,
+                        )
+                      ),
+                    ],
+                  ),
+                )
+          );
         }
       },
     ), onRefresh: _fetchData,
