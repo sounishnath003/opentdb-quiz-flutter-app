@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:quiz_app_api/Quiz.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,23 +10,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  Quiz quiz ;
-  List<Results> results ;
-
+  Quiz quiz;
+  List<Results> results;
 
   Future<void> fetchData() async {
-    final url = await http.get("https://opentdb.com/api.php?amount=30");
+    final url = await http.get("https://opentdb.com/api.php?amount=40");
     if (url.statusCode == 200) {
-      var decodeRes = jsonDecode(url.body) ;
+      var decodeRes = jsonDecode(url.body);
       print(decodeRes);
       quiz = Quiz.fromJson(decodeRes);
-      results = quiz.results ;
+      results = quiz.results;
     } else {
       throw Exception("Failed to load, try again later");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +41,16 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget _appBody() {
-
-  Quiz quiz ;
-  List<Results> results ;
+  Quiz quiz;
+  List<Results> results;
 
   Future<void> _fetchData() async {
     final url = await http.get("https://opentdb.com/api.php?amount=30");
     if (url.statusCode == 200) {
-      var decodeRes = jsonDecode(url.body) ;
+      var decodeRes = jsonDecode(url.body);
       print(decodeRes);
       quiz = Quiz.fromJson(decodeRes);
-      results = quiz.results ;
+      results = quiz.results;
       //print(results);
     } else {
       throw Exception("Failed to load, try again later");
@@ -68,44 +63,30 @@ Widget _appBody() {
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       switch (snapshot.connectionState) {
         case ConnectionState.none:
-            return new Text("Press button to start");
+          return new Text("Press button to start");
           break;
-          case ConnectionState.active:
-            return Center(child: new Text("In Progress..."),);
+        case ConnectionState.active:
+          return Center(
+            child: new Text("In Progress..."),
+          );
           break;
-          case ConnectionState.waiting:
-            return Center(child: CircularProgressIndicator()
-            );
-            break;
-          case ConnectionState.done:
-          if(snapshot.hasError) {
-            return Container(
-
-            );
+        case ConnectionState.waiting:
+          return Center(child: CircularProgressIndicator());
+          break;
+        case ConnectionState.done:
+          if (snapshot.hasError) {
+            return Container();
           } else {
-            return new QuestionList() ;
-                      }
-                      break ;
-                    default:
-                  }
-                },
+            return ListView.builder(
+                itemCount: results.length,
+                itemBuilder: (BuildContext context, int index) => new Card(
+                      child: new Text("2"),
+                    )
               );
-            }
-            
-class QuestionList extends StatefulWidget {
-  QuestionList({Key key}) : super(key: key);
-
-  _QuestionListState createState() => _QuestionListState();
-}
-
-class _QuestionListState extends State<QuestionList> {
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: 56,
-      itemBuilder: (BuildContext context, int index) => Card(
-        child: new Text("Questions Are Comming"),
-      )
-    );
-  }
+          }
+          break;
+        default:
+      }
+    },
+  );
 }
